@@ -33,7 +33,7 @@ def reset_blocks(block1, block2):
 def main():
     global in_menu
 
-    root = Root()
+    root = Root() # contains logic for drawing to screen and the main application loop
 
     block1 = Block(WIDTH / 2 * 0.75 - 200, 1, 0)
     block2 = Block(WIDTH / 2 - 200, 1, -7 / TIME_STEPS)
@@ -44,14 +44,14 @@ def main():
     root.bind("d", handle_right)
     root.bind("<Return>", hande_enter)
 
-    while(True):
+    while(True): # main loop
         if in_menu: 
-            root.drawMenu(selected)
+            root.draw_menu(selected)
         else: 
             if block2.m == 1: # means we just exited the menu and should update mass according to selection
                 block2.update_mass(100 ** (selected - 1))
 
-            collision = False
+            collision = False # set a boolean to play the noise once at most per tick
             for i in range(TIME_STEPS): # Euler integration 
                 if block1.is_colliding(block2):
                     block1.bounce(block2)
@@ -64,10 +64,10 @@ def main():
                 block1.update()
                 block2.update()
 
-            if collision: # conditional to only play too much
+            if collision: 
                 playsound("clack.mp3", False)
 
-            root.drawBlocks([block1, block2], block1.collisions) # func to render newly-updated blocks
+            root.draw_blocks([block1, block2], block1.collisions) # func to render newly-updated blocks
 
             if block2.x >= WIDTH + (300 if selected != 3 else 900): # if block2 exits the screen, reset to menu; 3 digits takes especially long to get the last hit
                 in_menu = True

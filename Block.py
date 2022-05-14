@@ -1,10 +1,10 @@
 from Constants import HEIGHT
 
 class Block():
-    x = y = w = v = m = None
+    x = y = w = v = m = 0
     collisions = 0
 
-    len_dict = {
+    len_dict = { # dictionary for getting side length from mass
         100 ** 0: 20, 
         100 ** 1: 40, 
         100 ** 2: 80, 
@@ -30,6 +30,7 @@ class Block():
         return not (self.x + self.w / 2 < other.x - other.w / 2 or self.x - self.w / 2 > other.x + other.w / 2)
 
     def bounce(self, other):
+        # formula for perfectly elastic, head-on collisions
         self_curr_v = self.v
         self.v = (self.m - other.m) / (self.m + other.m) * self_curr_v
         self.v += ((2 * other.m) / (self.m + other.m) * other.v)
