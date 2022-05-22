@@ -29,7 +29,7 @@ class Block():
     def is_colliding(self, other):
         return not (self.x + self.w / 2 < other.x - other.w / 2 or self.x - self.w / 2 > other.x + other.w / 2)
 
-    def bounce(self, other):
+    def collide(self, other):
         # formula for perfectly elastic, head-on collisions
         self_curr_v = self.v
         self.v = (self.m - other.m) / (self.m + other.m) * self_curr_v

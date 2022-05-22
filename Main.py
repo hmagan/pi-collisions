@@ -54,7 +54,7 @@ def main():
             collision = False # set a boolean to play the noise once at most per tick
             for i in range(TIME_STEPS): # Euler integration 
                 if block1.is_colliding(block2):
-                    block1.bounce(block2)
+                    block1.collide(block2)
                     block1.incr_coll()
                     collision = True
 
